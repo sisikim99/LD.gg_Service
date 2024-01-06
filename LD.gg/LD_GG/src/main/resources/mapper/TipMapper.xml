@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ld.gg.dao.TipDao">
+	<insert id="insertTip" parameterType="tip">
+		INSERT INTO tip_board
+		(t_b_content, t_b_views, champion_id, email, t_b_title)
+		VALUES
+		(#{t_b_content}, default, #{champion_id},
+		#{email},
+		#{t_b_title});
+	</insert>
+
+	<select id="getBoardList" resultType="tip">
+		SELECT tb.*, 
+		    ci.champion_kr_name,
+		    IFNULL(tr.t_b_recom, 0) AS t_b_recom
+		FROM tip_board tb
+		LEFT JOIN (
+		    SELECT COUNT(*) AS t_b_recom, t_b_num
+		    FROM tip_recom
+		    GROUP BY t_b_num
+		) tr ON tb.t_b_num = tr.t_b_num
+		LEFT JOIN champion_info ci ON tb.champion_id = ci.champion_id
+		ORDER BY tb.t_b_num desc
+	</select>
+
+	<select id="getSearchList" resultType="tip">
+		SELECT tb.*, 
+		       ci.champion_kr_name, 
+		       ci.champion_id, 
+		       IFNULL(tr.t_b_recom, 0) AS t_b_recom
+		FROM tip_board tb
+		LEFT JOIN (
+		    SELECT COUNT(*) AS t_b_recom, t_b_num
+		    FROM tip_recom
+		    GROUP BY t_b_num
+		) tr ON tb.t_b_num = tr.t_b_num
+		LEFT JOIN champion_info ci ON tb.champion_id = ci.champion_id
+		WHERE tb.t_b_content LIKE CONCAT('%', #{keyword}, '%')
+		OR tb.t_b_title LIKE CONCAT('%', #{keyword}, '%')
+		ORDER BY tb.t_b_num DESC
+	</select>
+	
+	<select id="getSearchIdList" resultType="tip">
+		SELECT tb.*,
+		ci.champion_kr_name,
+		ci.champion_id,
+		IFNULL(tr.t_b_recom, 0) AS t_b_recom
+		FROM tip_board tb
+		LEFT JOIN (
+		SELECT COUNT(*) AS t_b_recom, t_b_num
+		FROM tip_recom
+		GROUP BY t_b_num
+		) tr ON tb.t_b_num = tr.t_b_num
+		LEFT JOIN champion_info ci ON tb.champion_id = ci.champion_id
+		WHERE tb.champion_id = #{keyword}
+		ORDER BY tb.t_b_num DESC
+	</select>
+
+	<select id="getTipDetails" resultType="tip">
+		SELECT tb.*,
+		ci.champion_kr_name,
+		IFNULL(tr.t_b_recom, 0) AS t_b_recom,
+		m.lol_account
+		FROM tip_board tb
+		LEFT JOIN (
+		SELECT COUNT(*) AS t_b_recom, t_b_num
+		FROM tip_recom
+		GROUP BY t_b_num
+		) tr ON tb.t_b_num = tr.t_b_num
+		LEFT JOIN champion_info ci ON tb.champion_id = ci.champion_id
+		LEFT JOIN member m ON tb.email = m.email
+		WHERE tb.t_b_num = #{t_b_num}
+
+	</select>
+
+	<update id="updateView" parameterType="tip">
+		UPDATE tip_board
+		SET
+		t_b_views = #{t_b_views}
+		WHERE t_b_num = #{t_b_num}
+	</update>
+
+	<select id="recomInfo" parameterType="tip" resultType="Integer">
+		SELECT *
+		FROM tip_recom
+		WHERE email = #{email} AND t_b_num =
+		#{t_b_num}
+	</select>
+
+	<insert id="insertRecom" parameterType="tip">
+		INSERT INTO tip_recom
+		(t_b_num, email) VALUES (#{t_b_num}, #{email})
+	</insert>
+
+	<delete id="deleteRecom" parameterType="tip">
+		DELETE FROM tip_recom
+		WHERE t_b_num = #{t_b_num} AND email = #{email}
+	</delete>
+
+	<select id="getTipinfo" resultType="tip">
+		SELECT * FROM tip_board WHERE
+		t_b_num = #{t_b_num}
+	</select>
+
+	<update id="updateModifyTip" parameterType="tip">
+		UPDATE tip_board SET
+		t_b_title = #{t_b_title}, t_b_content = #{t_b_content},
+		champion_id =
+		#{champion_id},t_b_date = default WHERE t_b_num = #{t_b_num};
+	</update>
+
+	<insert id="replyInsert" parameterType="tip">
+		INSERT INTO `tip_reply`
+		(`t_b_num`, `t_r_content`, `email`)
+		VALUES (#{t_b_num}, #{t_r_content},
+		#{email});
+
+	</insert>
+
+	<select id="getReplyList" resultType="tip">
+		SELECT tr.*, m.lol_account
+		FROM tip_reply tr
+		LEFT JOIN member m ON tr.email = m.email
+		WHERE tr.t_b_num = #{t_b_num} AND tr.t_r_parents_num IS NULL
+		ORDER BY tr.t_r_num DESC
+	</select>
+
+	<select id="getsubReplyList" resultType="tip">
+		SELECT * FROM tip_reply
+		WHERE t_r_parents_num = #{t_r_num}
+		ORDER BY t_r_num
+		DESC
+	</select>
+
+	<delete id="deleteTip" parameterType="tip">
+		DELETE FROM tip_board
+		WHERE
+		t_b_num = #{t_b_num};
+	</delete>
+
+	<select id="getReplyinfo" resultType="tip">
+		SELECT * FROM tip_reply
+		WHERE
+		t_r_num = #{t_r_num}
+	</select>
+
+	<delete id="deleteReply" parameterType="tip">
+		DELETE FROM tip_reply
+		WHERE t_r_num = #{t_r_num};
+	</delete>
+
+	<update id="updateReply" parameterType="tip">
+		UPDATE tip_reply SET
+		t_r_content = #{t_r_content}, t_r_date = default
+		WHERE t_r_num =
+		#{t_r_num};
+	</update>
+
+	<insert id="subReplyInsert" parameterType="tip">
+		INSERT INTO `tip_reply`
+		(`t_b_num`, `t_r_content`, `email`, `t_r_parents_num`)
+		VALUES (#{t_b_num}, #{t_r_content}, #{email}, #{t_r_num});
+
+	</insert>
+	
+	<select id="getChampionLane" resultType="champ_list">
+		SELECT c.champion_id, c.champion_kr_name, c.champion_img, c.champion_en_name
+		FROM champion_info AS c
+		JOIN champion_lane AS cl ON c.champion_id = cl.champion_id
+		WHERE cl.team_position = #{team_position}
+		ORDER BY c.champion_kr_name ASC
+	</select>
+	
+	<select id="getChampionList" resultType="champ_list">
+		select champion_id, champion_kr_name,champion_en_name, champion_img from champion_info ORDER BY champion_kr_name ASC
+	</select>
+</mapper>

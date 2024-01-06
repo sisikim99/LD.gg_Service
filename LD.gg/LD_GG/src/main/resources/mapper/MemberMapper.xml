@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ld.gg.dao.MemberDao">
+
+	<select id="getLoginInfo" parameterType="member"
+		resultType="String">
+		SELECT password FROM MEMBER WHERE email=#{email}
+	</select>
+
+	<select id="getMemberInfo" resultType="member">
+		SELECT
+		email,phone_num,lol_account,user_type,join_date FROM MEMBER WHERE
+		email=#{email}
+	</select>
+
+	<insert id="join" parameterType="member">
+		INSERT ignore INTO MEMBER
+		VALUES(#{email},#{password},#{phone_num}
+		,#{lol_account},#{user_type},default)
+	</insert>
+
+	<select id="getMemberEmail" parameterType="member"
+		resultType="String">
+		SELECT email FROM MEMBER WHERE email=#{email}
+	</select>
+
+	<select id="getMemberLolAccount" parameterType="summoner"
+		resultType="summoner">
+		SELECT summoner_name,s_level,profile_icon_id FROM summoner_info WHERE
+		summoner_name=#{summoner_name} ORDER BY revision_date DESC LIMIT 1;
+	</select>
+	
+	<select id="getMemberLolAccountByKeyword" resultType="member">
+		SELECT email,lol_account,user_type FROM MEMBER WHERE
+		lol_account LIKE CONCAT('%', #{lol_account_keyword}, '%')
+	</select>
+
+	<select id="getMemberPhoneNum" parameterType="member"
+		resultType="String">
+		SELECT phone_num FROM MEMBER WHERE phone_num=#{phone_num}
+	</select>
+
+	<select id="getUserEmail" parameterType="member"
+		resultType="String">
+		SELECT email FROM MEMBER WHERE phone_num=#{phone_num}
+	</select>
+
+	<select id="checkAccount" parameterType="member"
+		resultType="member">
+		SELECT email,phone_num FROM MEMBER WHERE email=#{email} and
+		phone_num=#{phone_num}
+	</select>
+
+	<update id="updatePassword" parameterType="member">
+		UPDATE MEMBER SET
+		password = #{password} WHERE email = #{email}
+	</update>
+
+	<delete id="deleteAccount" parameterType="String">
+		DELETE FROM member
+		WHERE email = #{email}
+	</delete>
+
+	<update id="updateUserType" parameterType="member">
+		UPDATE MEMBER SET
+		user_type = #{user_type} WHERE email = #{email}
+	</update>
+
+	
+	<select id="checkLolAccount" parameterType="member"
+		resultType="member">
+		SELECT lol_account FROM MEMBER WHERE lol_account=#{lol_account}
+	</select>
+	
+	
+	<select id="getSummonerIcon" parameterType="member"
+		resultType="summoner">
+		SELECT summoner_name, profile_icon_id FROM summoner_info WHERE summoner_name = #{lol_account}
+		ORDER BY revision_date DESC LIMIT 1
+	</select>
+	
+	<select id="getUserLolAccount" parameterType="member"
+		resultType="member">
+		SELECT email,lol_account FROM MEMBER WHERE
+		lol_account=#{lol_account}
+	</select>
+</mapper>

@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ld.gg.dao.ChatDao">
+	<insert id="save_minigame_chat" parameterType="chat_mini">
+		INSERT INTO MINI_GAME_CHAT 
+		VALUES(#{mini_game_send_user}, #{mini_game_chat_content}, #{mini_game_chat_time})
+	</insert>
+
+	<select id="select_mentor" parameterType="String" resultType="String">
+		select distinct mentor_email from my_mentoring where menti_email = #{email}
+	</select>
+	<select id="select_menti" parameterType="String" resultType="String">
+		select distinct menti_email from my_mentoring where mentor_email = #{email};
+	</select>
+
+	<select id="select_chatroomSEQ" parameterType="chatroom" resultType="Integer">
+		select chat_room_seq from chat_room where chat_category = #{chat_category} and chat_send_user = #{chat_send_user} and chat_receive_user = #{chat_receive_user} limit 1
+	</select>
+	<select id="select_chatroomSEQ_reverse" parameterType="chatroom" resultType="Integer">
+		select chat_room_seq from chat_room where chat_category = #{chat_category} and chat_send_user = #{chat_receive_user} and chat_receive_user = #{chat_send_user} limit 1
+	</select>
+
+	<insert id="insert_chatroomSEQ" parameterType="chatroom" useGeneratedKeys="true" keyProperty="chat_room_seq">
+		insert into chat_room(chat_room_seq, chat_category, chat_send_user, chat_receive_user)
+		values (null, #{chat_category}, #{chat_send_user}, #{chat_receive_user})
+		<selectKey resultType="int" keyProperty="chat_room_seq" order="AFTER">
+			select last_insert_id()
+		</selectKey>
+	</insert>
+	<insert id="insert_chat_list" parameterType="chatroom">
+		insert into chat_room(chat_room_seq, chat_category, chat_send_user, chat_receive_user)
+		values (null, #{chat_category}, #{chat_send_user}, #{chat_receive_user})
+	</insert>
+
+	<insert id="insert_chat_room" parameterType="chatroom" useGeneratedKeys="true" keyProperty="chat_room_seq">
+		insert into chat_room(chat_room_seq, chat_category, chat_send_user, chat_receive_user)
+		values (null, #{chat_category}, #{chat_send_user}, #{chat_receive_user})
+		<selectKey resultType="int" keyProperty="chat_room_seq" order="AFTER">
+			select last_insert_id()
+		</selectKey>
+	</insert>
+
+	<select id="select_chat_list" parameterType="String" resultType="chatroom">
+		select * from chat_room where chat_send_user = #{email} or chat_receive_user = #{email}
+	</select>
+
+	<select id="select_chat_room_seq" parameterType="chatroom" resultType="int">
+		select chat_room_seq from chat_room where chat_category = #{chat_category} and chat_send_user = #{chat_send_user} and chat_receive_user = #{chat_receive_user} limit 1
+	</select>
+
+	<select id="select_chat_content" parameterType="int" resultType="chatlist">
+		select chat_content, chat_time, chat_user from chat_list where chat_room_seq = #{chatRoomSeq}
+	</select>
+
+	<insert id="insert_chat_content" parameterType="chatlist">
+		insert into chat_list(chat_seq, chat_room_seq, chat_category, chat_content, chat_time, chat_user) values (null, #{chat_room_seq}, #{chat_category}, #{chat_content}, #{chat_time}, #{chat_user})
+	</insert>
+
+	<select id="select_user" parameterType="int" resultType="chatroom">
+		select chat_send_user, chat_receive_user from chat_room where chat_room_seq = #{chat_room_seq}
+	</select>
+
+	<select id="get_mentor" parameterType="String" resultType="chatuser">
+		select distinct my_m.mentor_email as email, mem.lol_account as lol_account, si.profile_icon_id as profile_icon_id
+		from my_mentoring my_m
+				 join member mem on mem.email= my_m.mentor_email
+				 JOIN (
+			SELECT mem.lol_account, si.summoner_name, si.profile_icon_id
+			FROM summoner_info si
+					 JOIN member mem ON mem.lol_account = si.summoner_name
+					 JOIN (
+				SELECT summoner_name, MAX(revision_date) AS max_revision_date
+				FROM summoner_info
+				GROUP BY summoner_name
+			) latest_si ON si.summoner_name = latest_si.summoner_name AND si.revision_date = latest_si.max_revision_date
+			ORDER BY si.revision_date
+		) si ON mem.lol_account = si.summoner_name
+		where menti_email = #{email}
+	</select>
+	<select id="get_menti" parameterType="String" resultType="chatuser">
+		select distinct my_m.menti_email as email, mem.lol_account as lol_account, si.profile_icon_id as profile_icon_id
+		from my_mentoring my_m
+				 join member mem on mem.email= my_m.menti_email
+				 JOIN (
+			SELECT mem.lol_account, si.summoner_name, si.profile_icon_id
+			FROM summoner_info si
+					 JOIN member mem ON mem.lol_account = si.summoner_name
+					 JOIN (
+				SELECT summoner_name, MAX(revision_date) AS max_revision_date
+				FROM summoner_info
+				GROUP BY summoner_name
+			) latest_si ON si.summoner_name = latest_si.summoner_name AND si.revision_date = latest_si.max_revision_date
+			ORDER BY si.revision_date
+		) si ON mem.lol_account = si.summoner_name
+		where mentor_email = #{email}
+	</select>
+	<select id="get_mateapp" parameterType="String" resultType="chatuser">
+		select distinct mate.mate_apply as email, mem.lol_account as lol_account, si.profile_icon_id as profile_icon_id
+		from mate_request mate
+				 join member mem on mem.email = mate.mate_apply
+				 JOIN (
+			SELECT mem.lol_account, si.summoner_name, si.profile_icon_id
+			FROM summoner_info si
+					 JOIN member mem ON mem.lol_account = si.summoner_name
+					 JOIN (
+				SELECT summoner_name, MAX(revision_date) AS max_revision_date
+				FROM summoner_info
+				GROUP BY summoner_name
+			) latest_si ON si.summoner_name = latest_si.summoner_name AND si.revision_date = latest_si.max_revision_date
+			ORDER BY si.revision_date
+		) si ON mem.lol_account = si.summoner_name
+		where mate.email = #{email}
+	</select>
+	<select id="get_mate" parameterType="String" resultType="chatuser">
+		select distinct mate.email as email, mem.lol_account as lol_account, si.profile_icon_id as profile_icon_id
+		from mate_request mate
+				 join member mem on mem.email = mate.email
+				 JOIN (
+			SELECT mem.lol_account, si.summoner_name, si.profile_icon_id
+			FROM summoner_info si
+					 JOIN member mem ON mem.lol_account = si.summoner_name
+					 JOIN (
+				SELECT summoner_name, MAX(revision_date) AS max_revision_date
+				FROM summoner_info
+				GROUP BY summoner_name
+			) latest_si ON si.summoner_name = latest_si.summoner_name AND si.revision_date = latest_si.max_revision_date
+			ORDER BY si.revision_date
+		) si ON mem.lol_account = si.summoner_name
+		where mate.mate_apply = #{email}
+	</select>
+</mapper>

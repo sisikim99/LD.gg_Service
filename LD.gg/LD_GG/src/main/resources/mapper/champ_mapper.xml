@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ld.gg.dao.ChampDao">
+	<select id="champ_rank" resultType="champ_analytics">
+		<![CDATA[
+			SELECT ci.champion_kr_name, ci.champion_en_name, ci.champion_img, ct.*
+			FROM champion_tier ct
+			JOIN champion_info ci ON ci.champion_id = ct.champion_id
+			WHERE ct.team_position = #{lane} AND ct.pick_rate > 0.5
+			ORDER BY ct.tier ASC, ct.ai_score DESC
+		]]>
+	</select>
+
+	<select id="champ_match_up" resultType="champ_match_up">
+		<![CDATA[
+			select * from
+			champion_match_up
+			where champion_id= #{left_champion}
+			and match_up_cnt > 50
+			order by match_up_win_rate desc;
+		]]>
+	</select>
+
+	<select id="champ_search" resultType="champ_info">
+		select * 
+		from champion_info
+		where champion_kr_name = #{champion_name}
+		or champion_en_name = #{champion_name}
+	</select>
+	
+	<select id="champ_search_eng" resultType="String">
+		SELECT CHAMPION_KR_NAME FROM
+		CHAMPION_INFO
+		WHERE CHAMPION_EN_NAME = #{champion_en_name}
+	</select>
+	
+	<select id="champ_recom" resultType="champ_match_up">  
+	<![CDATA[
+		SELECT cmu.*
+		FROM champion_info ci
+		JOIN champion_match_up cmu ON ci.champion_id = cmu.champion_id
+		JOIN champion_info enemy_ci ON enemy_ci.champion_id = cmu.enemy_champ_id
+		WHERE (enemy_ci.champion_en_name = #{right_champion} OR enemy_ci.champion_kr_name = #{right_champion})
+			AND cmu.team_position = #{lane}
+			AND ci.champion_tag LIKE '%${tag}%'
+			AND cmu.match_up_cnt > 20
+		ORDER BY cmu.lane_kill_rate DESC, cmu.match_up_win_rate DESC
+		LIMIT 1, 5;
+	]]>
+		
+	</select>
+	
+	<select id="build_recom_spell" resultType="champ_match_up_spell">
+		SELECT cms.*, left_champion.champion_kr_name AS champion_name, right_champion.champion_kr_name AS enemy_champ
+		FROM champion_match_up_spell cms
+		JOIN champion_info left_champion ON cms.champion_id = left_champion.champion_id
+		JOIN champion_info right_champion ON cms.enemy_champ_id = right_champion.champion_id
+		WHERE (left_champion.champion_kr_name = #{left_champion} OR left_champion.champion_en_name = #{left_champion})
+		AND right_champion.champion_en_name = #{right_champion}
+		AND cms.team_position = #{team_position}
+	</select>
+	
+	<select id="build_recom_item" resultType="champ_match_up_item">
+		SELECT cmi.*, left_champion.champion_kr_name AS champion_name, right_champion.champion_kr_name AS enemy_champ
+		FROM champion_match_up_item cmi
+		JOIN champion_info left_champion ON cmi.champion_id = left_champion.champion_id
+		JOIN champion_info right_champion ON cmi.enemy_champ_id = right_champion.champion_id
+		WHERE (left_champion.champion_kr_name = #{left_champion} OR left_champion.champion_en_name = #{left_champion})
+		AND right_champion.champion_en_name = #{right_champion}
+		AND cmi.team_position = #{team_position}
+		
+	</select>
+	
+	<select id="build_recom_rune" resultType="champ_match_up_rune">
+		SELECT cmr.*, left_champion.champion_kr_name AS champion_name, right_champion.champion_kr_name AS enemy_champ,
+		MRI.RUNE_IMG main_keystone_id_img, MRI2.RUNE_IMG main_sub1_id_img, SRI.RUNE_IMG sub_keystone_id_img
+		FROM champion_match_up_rune cmr
+		JOIN champion_info left_champion ON cmr.champion_id = left_champion.champion_id
+		JOIN champion_info right_champion ON cmr.enemy_champ_id = right_champion.champion_id
+		JOIN RUNE_INFO MRI ON CMR.MAIN_KEYSTONE_ID = MRI.RUNE_ID
+		JOIN RUNE_INFO MRI2 ON CMR.MAIN_SUB1_ID = MRI2.RUNE_ID
+		JOIN RUNE_INFO SRI ON CMR.SUB_KEYSTONE_ID = SRI.RUNE_ID
+		WHERE (left_champion.champion_kr_name = #{left_champion} OR left_champion.champion_en_name = #{left_champion})
+		AND right_champion.champion_en_name = #{right_champion}
+		AND cmr.team_position = #{team_position}
+	</select>
+	
+	<select id="build_recom_skill" resultType="champ_match_up_skill">
+		SELECT cms.*, left_champion.champion_kr_name AS champion_name, right_champion.champion_kr_name AS enemy_champ
+		FROM champion_match_up_skill cms
+		JOIN champion_info left_champion ON cms.champion_id = left_champion.champion_id
+		JOIN champion_info right_champion ON cms.enemy_champ_id = right_champion.champion_id
+		WHERE (left_champion.champion_kr_name = #{left_champion} OR left_champion.champion_en_name = #{left_champion})
+		AND right_champion.champion_en_name = #{right_champion}
+		AND cms.team_position = #{team_position}
+	</select>
+
+	<select id="get_champ_list" resultType="champ">
+		select * from champion_info
+	</select>
+
+	<select id="getChampionInfo" resultType="champ_info">
+		SELECT * FROM champion_info where champion_id = #{champion_id}
+	</select>
+	
+	<select id="getChampionLaneData" resultType="champ_recomm_info">
+		SELECT * FROM champion_lane WHERE champion_id = #{champion_id}
+		ORDER BY pick_rate DESC;
+	</select>
+	
+	<select id="getChampionRuneData" resultType="champ_recomm_info">
+		SELECT 
+		    cr.*, 
+		    (SELECT ri.rune_img FROM rune_info ri WHERE ri.rune_id = cr.MAIN_KEYSTONE_ID) AS MAIN_KEYSTONE_ID_img,
+		    (SELECT ri.rune_img FROM rune_info ri WHERE ri.rune_id = cr.MAIN_SUB1_ID) AS MAIN_SUB1_ID_img,
+		    (SELECT ri.rune_img FROM rune_info ri WHERE ri.rune_id = cr.SUB_KEYSTONE_ID) AS SUB_KEYSTONE_ID_img
+		FROM 
+		    champion_rune cr
+		WHERE 
+		    cr.champion_id = #{champion_id} AND cr.team_position = #{team_position} order by pick_rate desc
+	</select>
+	
+	<select id="getChampionItemData" resultType="champ_recomm_info">
+		SELECT * FROM champion_recom_item WHERE champion_id = #{champion_id} AND team_position = #{team_position} order by pick_rate desc limit 5
+	</select>
+	
+	<select id="getChampionMythicItemData" resultType="champ_recomm_info">
+		SELECT * FROM champion_mythic_item WHERE champion_id = #{champion_id} AND team_position = #{team_position} order by pick_rate desc limit 5;
+	</select>
+	
+	<select id="getChampionItemBuildData" resultType="champ_recomm_info">
+		SELECT * FROM champion_item_build WHERE champion_id = #{champion_id} AND team_position = #{team_position} order by pick_rate desc;
+	</select>
+	
+	<select id="getChampionShoesData" resultType="champ_recomm_info">
+		SELECT * FROM champion_shoes WHERE champion_id = #{champion_id} AND team_position = #{team_position} order by pick_rate desc limit 5;
+	</select>
+
+	<select id="getChampionSpellData" resultType="champ_recomm_info">
+		SELECT * FROM champion_spell WHERE champion_id = #{champion_id} AND team_position = #{team_position} order by pick_rate desc limit 2;
+	</select>
+	
+	<select id="getChampionSkillBuildData" resultType="champ_recomm_info">
+		SELECT * FROM champion_skill_build WHERE champion_id = #{champion_id} AND team_position = #{team_position} order by pick_rate desc limit 2;
+	</select>
+	
+	<select id="getChampionAccessoriesData" resultType="champ_recomm_info">
+		SELECT * FROM champion_accessories WHERE champion_id = #{champion_id} AND team_position = #{team_position} order by pick_rate desc;
+	</select>
+	
+	<select id="getChampionTierData" resultType="champ_recomm_info">
+		SELECT * FROM champion_tier WHERE champion_id = #{champion_id} AND team_position = #{team_position};
+	</select>
+	
+	<select id="getStartItemData" resultType="champ_recomm_info">
+		SELECT * FROM champion_start_item WHERE champion_id = #{champion_id} AND team_position = #{team_position} order by pick_rate desc limit 3;
+	</select>
+	
+	<select id="getEasyChampData" resultType="champ_recomm_info">
+		<![CDATA[
+		SELECT cmu.enemy_champ_id, cmu.match_up_win_rate, ci.champion_img
+		FROM champion_match_up cmu
+		JOIN champion_info ci ON cmu.enemy_champ_id = ci.champion_id
+		WHERE cmu.champion_id = #{champion_id}
+		  AND cmu.team_position = #{team_position}
+		  AND cmu.match_up_cnt >= 10
+		ORDER BY cmu.match_up_win_rate DESC
+		LIMIT 5
+		]]>
+	</select>
+
+	<select id="getHardChampData" resultType="champ_recomm_info">
+		<![CDATA[
+		SELECT cmu.enemy_champ_id, cmu.match_up_win_rate, ci.champion_img
+		FROM champion_match_up cmu
+		JOIN champion_info ci ON cmu.enemy_champ_id = ci.champion_id
+		WHERE cmu.champion_id = #{champion_id}
+		  AND cmu.team_position = #{team_position}
+		  AND cmu.match_up_cnt >= 10
+		ORDER BY cmu.match_up_win_rate ASC
+		LIMIT 5
+		]]>
+	</select>
+	
+	<select id="get_champion_match_up" resultType="champ_match_up">
+		<![CDATA[
+			SELECT c.champion_id, m.match_up_cnt, i.champion_kr_name as champion_name, i.champion_img, m.lane_kill_rate, m.kill_participation, m.kda,
+			m.tower_kill_time, t.win_rate, t.pick_rate, t.ban_rate, c.team_position as team_position, m.match_up_win_rate as match_up_win_rate,
+			m.enemy_champ_id
+			FROM champion_lane AS c
+			JOIN champion_info AS i ON c.champion_id = i.champion_id
+			JOIN champion_match_up m ON c.champion_id = m.champion_id AND c.team_position = m.team_position
+			JOIN champion_tier t on c.champion_id = t.champion_id AND c.team_position = t.team_position
+			WHERE c.team_position = (
+			    SELECT team_position
+			    FROM champion_lane
+			    WHERE champion_id = #{champion_id}
+			    AND match_up_cnt > 20
+			    GROUP BY team_position
+			    ORDER BY pick_count DESC
+			    LIMIT 1
+			)
+			AND c.champion_id = #{champion_id}
+			ORDER BY m.match_up_cnt DESC;
+		]]>
+	</select>
+	
+	<select id="get_champion_match_up_chart" resultType="champ_match_up">
+			<![CDATA[
+			SELECT m.champion_id, m.match_up_cnt, i.champion_kr_name as champion_name, i.champion_img, m.lane_kill_rate, m.kill_participation, m.kda,
+			m.tower_kill_time, t.win_rate, t.pick_rate, t.ban_rate, m.match_up_win_rate as match_up_win_rate, m.enemy_champ_id
+			FROM champion_match_up as m
+			join champion_info as i ON m.champion_id = i.champion_id
+			join champion_tier t on m.champion_id = t.champion_id AND m.team_position = t.team_position
+			WHERE m.champion_id = #{champion_id}
+			AND m.team_position = #{team_position}
+			AND match_up_cnt > 20
+			order by m.match_up_cnt desc;
+			]]>
+	</select>
+	
+	<select id="get_enemy_champion_match_up" resultType="champ_match_up">
+		<![CDATA[
+			SELECT m.champion_id, i.champion_kr_name as champion_name, i.champion_img, m.lane_kill_rate, m.kill_participation, m.kda,
+			 m.tower_kill_time, t.win_rate, t.pick_rate, t.ban_rate, m.match_up_win_rate as match_up_win_rate
+			FROM champion_match_up m
+			JOIN champion_info AS i ON i.champion_id = m.champion_id 
+			JOIN champion_tier AS t ON t.champion_id = m.champion_id and t.team_position = #{team_position}
+			WHERE m.enemy_champ_id = #{champion_id}
+			AND m.team_position = #{team_position}
+			AND m.match_up_cnt > 20
+			ORDER BY m.match_up_cnt DESC;
+		]]>
+	</select>
+	
+	<select id="getRuneInfo" resultType="champ_match_up_rune">
+		SELECT rune_id, rune_kr_name, rune_desc, rune_long_desc,rune_img,rune_num,rune_type
+		FROM rune_info WHERE rune_type = #{main_key} order by rune_num asc
+	</select>
+	
+	<select id="getSubRuneInfo" resultType="champ_match_up_rune">
+		SELECT rune_id, rune_kr_name, rune_desc, rune_long_desc,rune_img,rune_num,rune_type
+		FROM rune_info WHERE rune_type = #{sub_key} order by rune_num asc
+	</select>
+	
+	<select id="getSpellInfo" resultType="champ_match_up_spell">
+		SELECT * FROM spell_info
+		WHERE spell_id IN (#{first_spell}, #{second_spell});
+	</select>
+	
+	<select id="getItemInfo" resultType="champ_item_info">
+		SELECT * FROM item_info WHERE item_id = #{item_id}
+	</select>
+	
+</mapper>

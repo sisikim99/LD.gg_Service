@@ -1,0 +1,1182 @@
+#flex_div {
+  box-sizing: border-box;
+}
+
+#renewal{
+	width : 100px;
+	height : 40px;
+	border : none;
+	background-color : #001940;
+	color : white;
+	cursor : pointer;
+	font-size : 16px;
+	margin-top: 27px;
+	border-radius: 0.5rem;
+	font-weight: 700;
+	z-index: 20;
+}
+
+#background-profile{
+	width : 95%;
+	height : 100px;
+	display : flex;
+}
+
+#summoner-profile{
+	display : flex;
+	background-color: #fff;
+	height: 120px;
+	padding: 10px;
+	border-radius: 0.5rem;
+	width: 230px;
+	z-index: 20;
+}
+
+.flex-profile-img{
+	width : 100px;
+	height : 100px;
+	border-radius : 1rem;
+	margin-right: 10px;
+/* 	obejct-fit : cover;
+	overflow : hidden; */
+}
+
+.flex-summoner-profile-name{
+	width: 100px;
+	font-size: 22px;
+	font-weight: 700;
+	margin-right: 20px;
+	padding-left: 5px;
+	
+} 
+
+.flex-summoner-level{
+	position : relative;
+	bottom: 30px;
+    left: 50px;
+	font-size : 18px;
+	width : 50px;
+	height : 30px;
+	background-color : black;
+ 	display : flex;
+	justify-content : center;
+	align-items : center; 
+	border-radius : 0.5rem;
+	padding-top: 10px;
+}
+
+#summoner-level{
+	color : white;
+	font-weight: 700;
+}
+.flex-tier{
+	transform: scale(2.5);
+	opacity: 0.1;
+	z-index: 0;
+}
+.flex-profile-tier-text{
+	font-size: 22px;
+	font-weight: 700;
+	margin-top: 60px;
+}
+
+.flex-header{
+	text-align : center;
+	background-color : #fff;
+	border-radius: 0.5rem;
+	margin-top: 20px;
+	font-size: 22px;
+	font-weight: 700;
+	align-items: center;
+	height: 40px;
+}
+
+.flex-category{
+	display : flex;
+	margin-top: 20px;
+	border-radius: 0.5rem;
+	background-color : #fff;	
+	font-size:16px;
+	font-weight: 700;
+	margin-bottom: 10px;
+}
+.flex-category div{
+	text-align: center;
+	
+}
+
+.champion_category{
+	flex : 1;
+  	height : fit-content;	
+  	text-align : center;
+}
+
+.winrate_category{
+	flex : 1;
+	height : fit-content;
+}
+
+.games_category{
+	flex : 1;
+	height : fit-content;
+}
+
+.wins_category{
+	flex : 1;
+	height : fit-content;
+}
+
+.losses_category{
+	flex : 1;
+	height : fit-content;
+}
+
+.kda_category{
+	flex : 1;
+	height : fit-content;
+}
+
+.kills_category{
+	flex : 1;
+	height : fit-content;
+}
+
+.deaths_category{
+	flex : 1;
+	height : fit-content;
+}
+
+.assists_category{
+	flex : 1;
+	height : fit-content;
+}
+
+.cs_category{
+	flex : 1;
+	height : fit-content;
+}
+
+.cs_pm_category{
+	flex : 1;
+	height : fit-content;
+}
+
+.flex-champ-table{
+	flex : 1;
+	display : flex;
+	flex-direction : row;
+}
+
+.flex-champ-record{
+	box-sizing: border-box;
+	background-color: #fff;
+	padding-top: 10px;
+	border-radius: 0.5rem;
+}
+
+.flex-champ {
+	flex : 1;
+	display : flex;
+	flex-direction : column;
+	position : relative;
+	height : 100%;
+}
+
+.champ-div{
+	flex : 1;
+	padding-left: 10px;
+}
+
+.champ-img {
+	width : 50px;
+	height : 50px;
+	display: inline-block;
+	border-radius: 0.5rem;
+	margin-right: 2px;
+	margin-bottom: 5px;
+}
+
+.champ-name {
+	font-size: 12px;
+	font-weight: 700;
+	text-align: center;
+	display: inline-block;
+}
+
+.flex-champ-winrate{
+	flex : 1;
+	display : flex;
+	flex-direction : column;
+	justify-content: space-between;
+	align-items: center;
+}
+.flex-champ-winrate strong{
+	    height: 45px;
+    margin-top: 11px;
+}
+
+.champ-winrate{
+	font-size : 15px;
+	text-align : center;
+	height : 29.47px;
+}
+
+.flex-champ-games{
+	flex : 1;
+	display : flex;
+	flex-direction : column;
+	justify-content: space-between;
+	align-items: center;
+}
+.flex-champ-games span{
+	    height: 45px;
+    margin-top: 11px;
+}
+
+.champ-games{
+	text-align : center;
+	height : 29.47px;
+		justify-content: space-between;
+}
+
+.flex-champ-wins{
+	flex : 1;
+	display : flex;
+	flex-direction : column;
+	justify-content: space-between;
+	align-items: center;
+}
+.flex-champ-wins span{
+	    height: 45px;
+    margin-top: 11px;
+}
+.champ-wins{
+	text-align : center;
+	height : 29.47px;
+}
+
+.flex-champ-losses{
+	flex : 1;
+	display : flex;
+	flex-direction : column;
+	justify-content: space-between;
+	align-items: center;
+}
+.flex-champ-losses span{
+	    height: 45px;
+    margin-top: 11px;
+}
+
+.champ-losses{
+	text-align : center;
+	height : 29.47px;
+}
+
+.flex-champ-kda{
+	flex : 1;
+	display : flex;
+	flex-direction : column;
+	justify-content: space-between;
+	align-items: center;
+}
+.flex-champ-kda strong{
+	    height: 45px;
+    margin-top: 11px;
+}
+
+.champ-kda{
+	text-align : center;
+	height : 29.47px;
+}
+
+.flex-champ-kills{
+	flex : 1;
+	display : flex;
+	flex-direction : column;
+	justify-content: space-between;
+	align-items: center;
+}
+.flex-champ-kills span{
+	    height: 45px;
+    margin-top: 11px;
+}
+
+.champ-kills{
+	text-align : center;
+	height : 29.47px;
+}
+
+.flex-champ-deaths{
+	flex : 1;
+	display : flex;
+	flex-direction : column;
+	justify-content: space-between;
+	align-items: center;
+}
+.flex-champ-deaths span{
+	    height: 45px;
+    margin-top: 11px;
+}
+
+.champ-deaths{
+	text-align : center;
+	height : 29.47px;
+}
+
+.flex-champ-assists{
+	flex : 1;
+	display : flex;
+	flex-direction : column;
+	justify-content: space-between;
+	align-items: center;
+}
+.flex-champ-assists span{
+	    height: 45px;
+    margin-top: 11px;
+}
+
+.champ-assists{
+	text-align : center;
+	height : 29.47px;
+}
+
+.flex-champ-cs{
+	flex : 1;
+	display : flex;
+	flex-direction : column;
+	justify-content: space-between;
+	align-items: center;
+}
+.flex-champ-cs strong{
+	    height: 45px;
+    margin-top: 11px;
+}
+
+.champ-cs{
+	text-align : center;
+	height : 29.47px;
+}
+
+.flex-champ-cs-pm{
+	flex : 1;
+	display : flex;
+	flex-direction : column;
+	justify-content: space-between;
+	align-items: center;
+}
+.flex-champ-cs-pm span{
+	    height: 45px;
+    margin-top: 11px;
+}
+
+.champ-cs-pm{
+	text-align : center;
+	height : 29.47px;
+}
+
+.flex-summary-table{
+	width : 100%;
+	display : flex;
+}
+
+.flex-summary-category{
+	width : 100%;
+	display : flex;
+	background-color: #fff;
+	border-radius: 0.5rem;
+	margin-top: 20px;
+	align-items: center;
+}
+.flex-summary-category div{
+	font-size: 18px;
+	font-weight: 700;
+}
+.flex-summary-category div{
+	margin-bottom: 10px;
+}
+
+.header-winrate-category{
+	height : 100%;
+	font-size : 15px;
+	text-align : center;
+	width : 20%;
+}
+.header-kda-category{
+	height : 100%;
+	font-size : 15px;
+	text-align : center;
+	width : 20%;
+}
+.header-KDA-category{
+	height : 100%;
+	font-size : 15px;
+	text-align : center;
+	width : 30%;
+}
+.header-lane-category{
+	height : 100%;
+	font-size : 15px;
+	text-align : center;
+	width : 35%;
+}
+.header-mostChamp-category{
+	height : 100%;
+	font-size : 15px;
+	text-align : center;
+	width : 70%;
+}
+
+#match_history{
+	background-color: #fff;
+	margin-top: 20px;
+	border-radius: 0.5rem;
+	display: flex;
+	text-align: center;
+	align-items: center;
+	height: 40px;
+}
+#match_history h3{
+	font-size: 22px;
+	font-weight: 700;
+}
+
+#history{
+	flex : 1;
+}
+
+#record_filter{
+	display : flex;
+	flex-direction : row;
+	background-color: #fff;
+	margin-top: 20px;
+	border-radius: 0.5rem;
+	text-align: center;
+	align-items: center;
+	height: 60px;
+	justify-content: center;
+}
+.record-filter-btn{
+	border: none;
+	border-radius: 0.5rem;
+	margin-right: 20px;
+	height: 40px;
+	width: 100px;
+	background-color: #f4f4f4;
+	font-weight: 700;
+	z-index: 20;
+}
+.record-filter-btn:hover{
+	background-color: #606060;
+}
+
+.flex-summary-div0{
+	display : flex;
+	background-color: #fff;
+	margin-top: 20px;
+	border-radius: 0.5rem;
+}
+
+.mostChamp{
+	flex : 1;
+}
+
+.flex-top-champ-img{
+	width : 100%;
+	height : auto;
+}
+
+.champDataDiv{
+	width : 20%;
+	text-align : center;
+	font-size : 18px;
+	font-weight: 700;
+	display : flex;
+	justify-content : center;
+	align-items : center;
+	flex-wrap : wrap;
+}
+
+.kdaAvgDiv{
+	width : 20%;
+	text-align : center;
+	font-size : 18px;
+	font-weight: 700;
+	display : flex;
+	justify-content : center;
+	align-items : center;
+	flex-wrap : wrap;
+}
+
+.bestKdaDiv{
+	width : 30%;
+	font-size : 18px;
+	font-weight: 700;
+	text-align : center;
+	display : flex;
+	justify-content : center;
+	align-items:center;
+	flex-wrap : wrap;
+}
+
+.positionDiv{
+	width : 35%;
+	font-size : 18px;
+	text-align : center;
+	display : flex;
+	justify-content : center;
+	align-items:center;
+	font-weight: 700;
+}
+
+.mostChampDiv{
+	width : 70%;
+	font-size : 18px;
+	text-align : center;
+	display : flex;
+	padding-top: 20px;
+	font-weight: 700;
+}
+
+.flex-top-champ-img{
+	width: 100px;
+	height: 100px;
+	border-radius: 0.5rem;
+}
+
+.strong-winrate{
+	width : 100%;
+	height : fit-content;
+}
+
+.strong-kda-avg{
+	width : 100%;
+	height : fit-content;
+}
+
+.strong-max-kda{
+	width : 100%;
+	height : fit-content;
+}
+
+.span-winrate{
+	height : fit-content;
+}
+
+.span-kda-avg{
+	height : fit-content;
+}
+
+.span-max-kda{
+	height : fit-content;
+}
+
+.flex-top, .flex-jungle, .flex-middle, .flex-bottom, .flex-utility{
+	width : 30px;
+	height : 30px;
+}
+
+#champ_position_filter{
+	display : flex;
+	margin-top: 30px;
+	width: 230px;
+	height: 70px;
+	background-color: #fff;
+	align-items: center;
+	border-radius: 0.5rem;
+	padding-left: 10px;
+	z-index: 10;
+}
+
+.champRecordFilterBtn{
+	display : flex;
+	justify-content : center;
+	align-items : center;
+	height: 50px;
+	margin-right: 5px;
+	border: none;
+	background-color: #f4f4f4;
+	border-radius: 0.5rem;
+	font-weight: 700;
+}
+.champRecordFilterBtn:hover{
+	background-color: #606060;
+}
+
+.filterBtnDiv{
+	display : flex;
+	height: 50px;
+	z-index: 10;
+}
+
+.record{
+	width : 100%;
+}
+
+.record_win_lose_div{
+	width : 10%;
+	display : flex;
+	justify-content : center;
+	align-items : center;
+}
+
+.record_win_div, .record_lose_div{
+	display : flex;
+	flex-direction : column;
+	justify-content : center;
+	align-items : center;
+}
+
+.record_champ_div{
+	width : 13%;
+	display : flex;
+	flex-direction : row;
+	justify-content : center;
+	align-items : center;
+}
+
+.record_champ_sub_div{
+	position : relative;
+	margin : 0;
+	padding : 0;
+}
+
+.record_kda_div{
+	width : 7%;
+	display : flex;
+	justify-content : center;
+	align-items : center;
+}
+
+.record_cs_sight_div{
+	width : 15%;
+	display : flex;
+	justify-content : center;
+	align-items : center;
+	font-size: 15px;
+    font-weight: 700;
+}
+
+.record_cs_sight_sub_div{
+	position : relative;
+	display : flex;
+	flex-direction : column;
+	justify-content : center;
+	align-items : center;
+}
+
+.record_item_div{
+	width : 20%;
+	display : flex;
+	justify-content : center;
+	align-items : center;
+}
+
+.record_player_div{
+	width : 25%;
+	display : flex;
+	flex-direction : row;
+	margin-right: 110px;
+	border-radius: 0.5rem;
+}
+
+.record_spell_div{
+	display : flex;
+	flex-direction : column;
+}
+
+.record_rune_div{
+	display : flex;
+	flex-direction : column;
+}
+
+.button_div{
+	width : 60px;
+	background-color : #62b1f8;
+	cursor : pointer;
+	border : none;
+	z-index: 20;
+	transition: 0.3s;
+	border-radius: 0.5rem;
+}
+.button_div:hover{
+	filter: grayscale(0.8);
+}
+
+.recordChampImg{
+	width : 70px;
+	height : 70px;
+	border-radius: 0.5rem;
+}
+
+.record_champ_level{
+	position : absolute;
+	bottom : 4px;
+	right : 2px;
+	background-color : black;
+	width: 20px;
+	height: 20px;
+	font-size: 15px;
+	font-weight: 700;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+	color : white; 
+}
+
+.record_spell_img1, .record_spell_img2{
+	width : 35px;
+	height : 35px;
+	border-radius: 0.3rem;
+}
+
+.record_rune_img1{
+	width : 35px;
+	height : 35px;
+}
+
+.record_rune_img2{
+	width : 35px;
+	height : 35px;
+}
+
+.record_res_wards_img{
+	width : 30px;
+	height : 30px;
+	border-radius: 0.5rem;
+	margin-right: 20px;
+}
+
+.record_red_wards{
+	position : absolute;
+	bottom : 0;
+	right : 25px;
+}
+
+.record-item{
+	width : 13%;
+	height : 8%;
+}
+
+.record_div{
+	display : flex;
+	background-color: #fff;
+	border-radius: 0.5rem;
+	margin-top : 10px;
+}
+
+.playerDiv{
+	width : 148px;
+	white-space : nowrap;
+	overflow : hidden;
+	text-overflow : ellipsis;
+}
+
+.playerImg{
+	width: 30px;
+    height: 30px;
+    border-radius: 0.3rem;
+    margin-bottom: 1.5px;
+    margin-right: 10px;
+}
+
+.playerName{
+	font-size : 13px;
+	overflow : hidden;
+	text-overflow : ellipsis;
+	max-width : 100%;
+	vertical-align: middle;
+}
+
+.record_team1_div, .record_team2_div{
+	flex : 1;
+}
+
+.hidden_div{
+	width : 100%;
+}
+
+.whole{
+	width : 100%;
+	display : flex;
+	flex-direction: column;
+}
+
+.data_header{
+	width : 100%;
+	display : flex;
+	flex-direction : row;
+	text-align : center;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	background-color: #fff;
+	border-radius: 0.5rem;
+	
+}
+
+.synthesis, .build, .ranking{
+	flex : 1;
+	transition: 0.3s;
+	
+}
+.synthesis:hover, .build:hover, .ranking:hover{
+	background-color: #606060;
+	color: #fff;
+}
+
+.data{
+	width : 100%;
+	display : flex;
+	background-color: #fff;
+	border-radius: 0.5rem;
+	padding: 20px;
+}
+
+.win, .lose{
+	flex : 1;
+	display : flex;
+	flex-direction : column;
+}
+
+.win_team, .lose_team{
+	display : flex;
+	margin-bottom: 3px;
+}
+
+.champ_info{
+	width : 30%;
+	display : flex;
+	flex-direction : row;
+}
+
+.kda_info{
+	width : 10%;
+	display : flex;
+	justify-content : center;
+	align-items : center;
+}
+
+.cs_info{
+	width : 20%;
+	display : flex;
+	justify-content : center;
+	align-items : center;
+	flex-direction : column;
+}
+
+.cs{
+	display : flex;
+	flex-direction : column;
+	justify-content : center;
+	align-items : center;
+}
+
+.item_info{
+	width : 40%;
+	display : flex;
+	justify-content : flex-start;
+	align-items : center;
+	flex-direction : row;
+}
+
+.champion{
+	position : relative;
+	padding : 0;
+	margin : 0;
+}
+
+.champ_level{
+	position : absolute;
+	font-size : 12px;
+	bottom : 7px;
+	right : 2px;
+	background-color : black;
+	color : white;
+	opacity: 0.7;
+}
+
+.spell{
+	display : flex;
+	flex-direction : column;
+}
+
+.rune{
+	width : 15%;
+	display : flex;
+	flex-direction : column;
+}
+
+.itemImgDiv{
+	display : flex;
+	flex-direction : row;
+}
+
+.syn-summoner-info{
+	width : 23%;
+	text-align : center;
+	display : flex;
+	justify-content : flex-start;
+	align-items : center;
+}
+
+.syn-summoner-text{
+	display : flex;
+	flex-direction : row;
+}
+
+.syn-summoner-tier{
+	font-size : 12px;
+	width : 20px;
+	height : 20px;
+	border-radius: 0.1rem;
+	font-weight: 700;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-color : #ff6767;
+	color : white;
+}
+
+.syn-summoner-name{
+	width : 20%;
+	font-size : 16px;
+	font-weight: 700;
+	display : flex;
+	white-space : nowrap;
+}
+
+.flex-champion{
+	width : 50px;
+	height : 50px;
+	border-radius: 0.3rem;
+}
+
+.flex-spell1, .flex-spell2{
+	width : 25px;
+	height : 25px;
+	border-radius: 0.3rem;
+}
+
+.flex-rune1{
+	width : 25px;
+	height : 25px;
+}
+
+.flex-rune2{
+	width : 25px;
+	height : 25px;
+}
+
+.syn-item-img{
+	width : 35px;
+	height : 35px;
+}
+
+.syn-kda-text{
+	font-size : 16px;
+	font-weight: 700px;
+	text-align : center;
+}
+
+.syn-cs-text{
+	font-size : 16px;
+	font-weight: 700px;
+}
+
+.synthesis, .build, .ranking{
+	cursor : pointer;
+	border : 0.6px solid #eeeeee;
+}
+
+.dataDiv{
+	width : 100%;
+	display : flex;
+}
+
+.RankingDataDiv{
+	width : 100%;
+	display : flex;
+	flex-direction : column;
+}
+
+.firstDiv{
+	width : 100%;
+	display : flex;
+	flex-direction : row;
+}
+
+.secondDiv{
+	width : 100%;
+	display : flex;
+	flex-direction : row;
+}
+
+.delatDiv, .takenDiv, .killsDiv, .deathsDiv, .assistsDiv, .redWardsDiv, .csDiv{
+	flex : 1;
+}
+
+.dealtTitleDiv {
+  position: relative;
+}
+
+.dealtTitleDiv span {
+  position: absolute;
+  top: 0;
+  right: 10px;
+  margin-left: 10px;
+}
+
+.takenTitleDiv{
+	position : relative;
+}
+
+.takenTitleDiv span{
+	position : absolute;
+	top : 0;
+	right : 10px;
+	margin-left : 10px;
+}
+
+.killsTitleDiv{
+	position : relative;
+}
+
+.killsTitleDiv span{
+	position : absolute;
+	top : 0;
+	right : 10px;
+	margin-left : 10px;
+}
+
+.deathsTitleDiv{
+	position : relative;
+}
+
+.deathsTitleDiv span{
+	position : absolute;
+	top : 0;
+	right : 10px;
+	margin-left : 10px;
+}
+
+.assistsTitleDiv{
+	width : 70%;
+	position : relative;
+}
+
+.assistsTitleDiv span{
+	position : absolute;
+	top : 0;
+	right : 10px;
+	margin-left : 10px;
+}
+
+.redWardsTitleDiv{
+	width : 70%;
+	position : relative;
+}
+
+.redWardsTitleDiv span{
+	position : absolute;
+	top : 0;
+	right : 10px;
+	margin-left : 10px;
+}
+
+.CSTitleDiv{
+	width : 70%;
+	position : relative;
+}
+
+.CSTitleDiv span{
+	position : absolute;
+	top : 0;
+	right : 10px;
+	margin-left : 10px;
+}
+
+.flex-record-div{
+	width : 100%;
+}
+
+#record{
+	width : 100%;
+}
+
+.recordMoreBtn{
+	width : 100%;
+	margin : 5px;
+	border : none;
+	height : 25px;
+}
+
+.runeBuildDiv{
+	width : 100%;
+	display : flex;
+	flex-direction : row;
+}
+
+.buildMainRuneDiv, .buildSubRuneDiv{
+	flex : 1;
+	display : flex;
+	flex-direction : column;
+	align-items : center;
+	justify-content : center;
+}
+
+.mainRuneTitle, .subRuneTitle{
+	display : flex;
+	align-items : center;
+	justify-content : center;
+}
+
+.mainRune1, .mainRune2, .mainRune3, .mainRune4{
+	display : flex;
+	align-items : center;
+	justify-content : center;
+}
+
+.subRune1, .subRune2, .subRune3{
+	display : flex;
+	align-items : center;
+	justify-content : center;
+}
+
+.buildRuneImg{
+	width : 40px;
+	height : auto;
+}
+
+.fragmentImg{
+	width : 40px;
+	height : auto;
+}
+
+.mainRuneTitle, .mainRune1, .mainRune2, .mainRune3, .mainRune4{
+	margin : 15px 0 0 0;
+}
+
+.subRuneTitle, .subRune1, .subRune2, .subRune3, .firstFragmentDiv, .secondFragmentDiv, .thirdFragmentDiv{
+	margin : 8px 0 0 0;
+}
+
+.mainRune1 img, .mainRune2 img, .mainRune3 img, .mainRune4 img{
+	margin : 0 20px 0 20px;
+}
+
+.subRune1 img, .subRune2 img, .subRune3 img, .firstFragmentDiv img, .secondFragmentDiv img, .thirdFragmentDiv img{
+	margin : 0 20px 0 20px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+

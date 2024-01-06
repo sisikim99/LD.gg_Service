@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.ld.gg.dao.mentoringdao.MentiDAO">
+
+
+<select id="select_by_reviewer_email_mentor_review" resultType="mentor_review">
+	select mr.review_num ,mr.reviewer_email ,
+	m.lol_account as reviewer_lol_account, 
+	mr.class_id, mr.mentoring_id, mc.class_name
+	,mr.review_content ,mr.review_date , 
+	mr.mentor_email ,m2.lol_account as mentor_lol_account, mr.grade 
+	from mentor_review mr
+	join member m on m.email = mr.reviewer_email
+	join member m2 on m2.email = mr.mentor_email
+	join mentor_class mc on mc.class_id = mr.class_id
+	WHERE mr.reviewer_email = #{reviewer_email}
+	ORDER BY mr.review_date DESC;
+</select>
+
+<select id="select_by_mentor_email_mentor_review" resultType="mentor_review">
+	select mr.review_num ,mr.reviewer_email ,
+	m.lol_account as reviewer_lol_account, 
+	mr.class_id, mr.mentoring_id, mc.class_name ,mr.review_content ,mr.review_date , 
+	mr.mentor_email ,m2.lol_account as mentor_lol_account, mr.grade 
+	from mentor_review mr
+	join member m on m.email = mr.reviewer_email
+	join member m2 on m2.email = mr.mentor_email
+	join mentor_class mc on mc.class_id = mr.class_id
+	WHERE mr.mentor_email = #{mentor_email}
+	ORDER BY mr.review_date DESC;
+</select>
+
+<select id="select_by_review_num" resultType="mentor_review">
+	select *
+	from mentor_review mr
+	WHERE mr.review_num = #{review_num};
+</select>
+
+<insert id="insert_mentor_review" parameterType="mentor_review">
+  INSERT INTO mentor_review (reviewer_email,class_id,mentoring_id
+  ,review_content,mentor_email,grade) 
+  VALUES (#{reviewer_email},#{class_id},#{mentoring_id},#{review_content}
+  ,#{mentor_email},#{grade});
+</insert>
+
+<delete id="delete_mentor_review" parameterType="int">
+  DELETE FROM mentor_review WHERE review_num = #{review_num};
+</delete>
+
+
+
+</mapper>

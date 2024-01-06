@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.ld.gg.dao.mentoringdao.MyMentoringDAO">
+
+
+<select id="select_by_email_my_mentoring" resultType="myMentoring">
+ 	SELECT mm.menti_email, m.lol_account as menti_lol_account, 
+ 	mm.class_id, mc.class_name, mm.menti_state, mm.mentoring_id,
+	mm.mentor_email, m2.lol_account as mentor_lol_account, mm.apply_date, mm.done_date 
+	FROM my_mentoring mm 
+	JOIN mentor_class mc 
+	ON mm.class_id = mc.class_id 
+	join member m ON m.email = mm.menti_email
+	join member m2 on m2.email = mm.mentor_email
+	where menti_email = #{menti_email}
+	ORDER BY mm.apply_date DESC;
+</select>
+
+<select id="select_by_mentor_email_my_mentoring" resultType="myMentoring">
+  SELECT mm.menti_email, m.lol_account as menti_lol_account, 
+ 	mm.class_id, mc.class_name, mm.menti_state, mm.mentoring_id,
+	mm.mentor_email, m2.lol_account as mentor_lol_account, mm.apply_date, mm.done_date 
+	FROM my_mentoring mm 
+	JOIN mentor_class mc 
+	ON mm.class_id = mc.class_id 
+	join member m ON m.email = mm.menti_email
+	join member m2 on m2.email = mm.mentor_email
+	where mm.mentor_email = #{mentor_email}
+	ORDER BY mm.apply_date DESC;
+</select>
+
+<insert id="insert_my_mentoring" parameterType="myMentoring">
+  INSERT INTO my_mentoring (menti_email, class_id, mentor_email) VALUES (#{menti_email}, #{class_id}, #{mentor_email});
+</insert>
+
+<update id="update_my_mentoring" parameterType="myMentoring">
+  UPDATE my_mentoring SET menti_state = #{menti_state}, done_date = #{done_date}
+  WHERE mentoring_id = #{mentoring_id};
+</update>
+
+<delete id="delete_my_mentoring" parameterType="myMentoring">
+  DELETE FROM my_mentoring 
+  WHERE mentoring_id = #{mentoring_id};
+</delete>
+
+
+
+</mapper>

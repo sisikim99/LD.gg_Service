@@ -1,0 +1,265 @@
+@charset "UTF-8";
+
+.store-container{
+	padding: 100px 50px 0px 100px;
+    box-sizing: border-box;
+}
+
+#payment-modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+/* 모달 창 내용 */
+.payment-modal-content {
+	background-color: white;
+    border: none;
+    max-width: 800px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    position: absolute;
+    width: 920px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.payment-modal-header{
+	text-align : center;
+	margin : 5px 0 5px 0;
+}
+
+.modal-payment-method{
+	margin: 5px 0 5px 0;
+}
+
+.payment-method{
+	margin: 0 0 5px 0px;
+    width: 100%;
+    background-color: whitesmoke;
+    border-radius : 4px;
+}
+
+.requestBtn{
+	border: none;
+    border-radius: 8px;
+    height: 30px;
+    background-color: #4b4949;
+    color: white;
+}
+
+/* 닫기 버튼 */
+.close {
+    font-size: 20px;
+    margin: 5px 0 2px 340px;
+    width: 120px;
+    background-color: #7ec1ff;
+    text-align: center;
+    border-radius : 10px;
+}
+
+.close:hover, .close:focus {
+	color: black;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+.flex-store-div {
+	display: flex;
+	flex-flow: wrap;
+	flex-direction: column;
+	width : 100%;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
+}
+
+.flex-store-title {
+	text-align : center;
+}
+
+.flex-hold-cash {
+	height: 50px;
+    background-color: #313131;
+    border-radius: 9px;
+    width: 920px;
+    display: flex;
+    align-items: center;
+}
+
+.flex-strong-cash {
+	color: #ffffff;
+}
+
+.flex-store-notice {
+	display: flex;
+	width: 90%;
+	height: 3%;
+	border: 1px solid #EAEAEA;
+	background-color: #EAEAEA;
+	border-radius: 5px;
+	justify-content: center;
+	align-items: center;
+}
+
+.flex-payment-info {
+	display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 40px 0 0 0;
+    width : 920px;
+}
+
+.flex-payment-header {
+	align-self: flex-start;
+	margin-left: 0;
+}
+
+.flex-normal-charge {
+	margin-left: 0;
+}
+
+.flex-paymnent-cash {
+	display: flex;
+    align-items: center;
+    background-color: #75C7FB;
+    margin: 0 0 35px 0;
+    height : 50px;
+    width : 920px;
+}
+
+.flex-label {
+	margin-left: 80px;
+    width: 120px;
+    text-align: center
+}
+
+.flex-payment-button {
+	margin-left: 555px;
+    border: none;
+    text-align: center;
+    cursor: pointer;
+    width: 110px;
+    height: 33px;
+    border-radius: inherit;
+    background-color: white;
+    color: #44a5ff;
+    border-radius: 8px;
+}
+
+.flex-store-div{
+	display : flex;
+	flex-direction : column;
+	justify-content : center;
+	align-items : center;
+}
+
+.flex-store-tab{
+	display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin: 15px 0 15px 0;
+}
+
+.flex-purchaseTab, .flex-chargeTab{
+	cursor: pointer;
+    margin: 0 80px 0 80px;
+    background-color: #eeeeee;
+    width: 150px;
+    border-radius: 4px;
+    text-align: center;
+}
+
+.cash-title-div{
+	width : 460px;
+}
+
+#flex-hold-title{
+	text-align: left;
+    margin: 0 0 0 90px;
+    margin-left: 105px;
+}
+
+.flex-payment-cash{
+	display: flex;
+    align-items: center;
+    background-color: #aed8ff;
+    margin: 0 0 35px 0;
+    height : 50px;
+    width : 920px;
+    border-radius: 8px;
+}
+
+#flex-hold-cash{
+    text-align: right;
+    margin: 0 0 0 310px;
+}
+
+.felx-payment-cash-text{
+	margin : 0 420px 0 0;
+}
+
+#usageHistory {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+#history-content {
+	position : absolute;
+	background-color: #fff;
+	width: 950px;
+	height : 550px;
+	max-height : 550px;
+	top: 50%; /* 중앙보다 약간 위로 이동 */
+	left: 50%;
+	transform: translate(-50%, -50%);
+	display : flex;
+	flex-direction : row;
+	overflow-y: auto;
+}
+
+.usageWindow{
+	width: 475px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color : white;
+}
+
+.usageCategory{
+	width : 100%;
+	margin: 20px 0 15px 0;
+	background-color: #fce5cd;
+}
+
+.usageMiniCategory{
+	width: 237.5px;
+    text-align: center;
+    border-bottom: 1px solid wheat;
+    border-top: 1px solid wheat;
+}
+
+.dateTd, .pointsTd, .merchantIdTd, .priceTd{
+	width : 237.5px;
+	text-align : center;
+}
+
+.historyTr{
+	margin : 0 0 5px 0;
+	height: 40px;
+}
